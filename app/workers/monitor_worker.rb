@@ -2,8 +2,11 @@ class MonitorWorker
     include Sidekiq::Worker
     # depois de testar como task no rake coloque seu codigo aqui
     def perform()
-        10.times do |i|
-            puts "just a test"
+        websites = Website.all
+        print "\n"
+        websites.each do |website|
+            print "#{website.url}\n"
         end
+        print "\n\n"
     end
 end
