@@ -1,9 +1,11 @@
+require 'nokogiri'
+require 'open-uri'
+
+# Get a Nokogiri::HTML::Document for the page we’re interested in...
 # Espaço para você 'testar' o codigo
 task :teste => :environment do
-    websites = Website.all
-    print "\n"
-    websites.each do |website|
-        print "#{website.url}\n"
+    doc = Nokogiri::HTML(open('http://www.sorrydave.com.br'))
+    doc.css('.blog-description').each do |link|
+      puts link.content
     end
-    print "\n\n"
 end
