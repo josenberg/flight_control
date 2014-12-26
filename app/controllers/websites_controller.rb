@@ -1,4 +1,8 @@
 class WebsitesController < ApplicationController
+  before_action :set_website, only: [:show, :edit, :update, :destroy]
+  def show
+  end
+
   def new
     @website = Website.new
   end
@@ -16,11 +20,27 @@ class WebsitesController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @website.update(website_params)
+      redirect_to @website,
+      notice: 'Website was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
   def index
     @websites = Website.all
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_website
+      @website = Website.find(params[:id])
+    end
 
   def website_params
     params.require(:website).permit(:url, :description)
