@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226020413) do
+ActiveRecord::Schema.define(version: 20141226173146) do
+
+  create_table "reports", force: :cascade do |t|
+    t.string   "id_website"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "websites", force: :cascade do |t|
     t.string   "url"

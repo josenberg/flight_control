@@ -2,6 +2,9 @@ require 'nokogiri'
 require 'open-uri'
 
 task :teste => :environment do
+
+    website_filter  = Website.find(:conditions => ['website.created_at > ?', Time.now - 5.minutes])
+    puts website_filter
     websites = Website.all
     websites.each do |website|
         puts website.search_place
