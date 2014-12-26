@@ -3,8 +3,6 @@ require 'open-uri'
 
 task :teste => :environment do
 
-    website_filter  = Website.find(:conditions => ['website.created_at > ?', Time.now - 5.minutes])
-    puts website_filter
     websites = Website.all
     websites.each do |website|
         puts website.search_place
@@ -13,11 +11,16 @@ task :teste => :environment do
             link.content = link.content.tr('^A-Za-z0-9', '')
             website.content = website.content.tr('^A-Za-z0-9', '')
             print "Content banco: #{link.content} | Content Find: #{website.content} \n"
+            report = Report.new
+            report.id_website = website.id
             if website.content == link.content
+                report.status = "Working"
                 print "Working \n"
             else
+                report.status = "Not Working"
                 print "Not Working\n"
             end
+            report.save
         end
     end
 end
