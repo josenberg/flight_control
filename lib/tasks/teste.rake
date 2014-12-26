@@ -1,11 +1,20 @@
 require 'nokogiri'
 require 'open-uri'
 
-# Get a Nokogiri::HTML::Document for the page we’re interested in...
-# Espaço para você 'testar' o codigo
 task :teste => :environment do
-    doc = Nokogiri::HTML(open('http://www.sorrydave.com.br'))
-    doc.css('.blog-description').each do |link|
-      puts link.content
+    websites = Website.all
+    websites.each do |website|
+        puts website.search_place
+        doc = Nokogiri::HTML(open(website.url))
+        doc.css(website.search_place).each do |link|
+            link.content = link.content.tr('^A-Za-z0-9', '')
+            website.content = website.content.tr('^A-Za-z0-9', '')
+            print "Content banco: #{link.content} | Content Find: #{website.content} \n"
+            if website.content == link.content
+                print "Working \n"
+            else
+                print "Not Working\n"
+            end
+        end
     end
 end
