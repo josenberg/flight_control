@@ -43,7 +43,8 @@ class WebsitesController < ApplicationController
     end
 
   def website_params
-    params.require(:website).permit(:url, :description)
+    params.require(:website).permit(:url, :description,
+                                                         :search_place, :content)
   end
 
 end
