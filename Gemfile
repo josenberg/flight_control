@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+
+gem 'devise'
 gem 'sidekiq'
 gem 'whenever',:require => false
 gem 'bootstrap-sass',       '3.2.0.0'
